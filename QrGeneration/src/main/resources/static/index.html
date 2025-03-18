@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: blue;
+            color: white;
+            border: none;
+            margin-top: 10px;
+        }
+        button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        img {
+            margin-top: 20px;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>QR Code Generator</h1>
+    <input type="text" id="qrData" placeholder="Enter data...">
+    <br>
+    <button onclick="generateQRCode()">Generate QR Code</button>
+    <br>
+    
+    <!-- Initially hidden display button -->
+    <button id="displayBtn" onclick="displayQRCode()" style="display: none;">Display QR Code</button>
+    
+    <div id="qrCodeContainer"></div>
+
+    <script>
+        let qrCodeFilePath = "";
+
+        function generateQRCode() {
+            const data = document.getElementById("qrData").value;
+            if (!data) {
+                alert("Please enter some data.");
+                return;
+            }
+
+            fetch("http://localhost:8080/api/qrcode/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ data: data })
+            })
+            .then(response => response.text())
+            .then(filePath => {
+                qrCodeFilePath = filePath;
+                document.getElementById("displayBtn").style.display = "inline-block"; // Show Display button
+                document.getElementById("qrCodeContainer").innerHTML = ""; // Clear previous QR code
+            })
+            .catch(error => alert("Failed to generate QR Code."));
+        }
+
+        function displayQRCode() {
+            if (qrCodeFilePath) {
+                document.getElementById("qrCodeContainer").innerHTML = `
+                    <h3>Generated QR Code:</h3>
+                    <img src="http://localhost:8080/${qrCodeFilePath}" alt="QR Code">`;
+            }
+        }
+    </script>
+
+</body>
+</html>
