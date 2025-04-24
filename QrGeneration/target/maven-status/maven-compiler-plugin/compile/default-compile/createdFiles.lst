@@ -1,5 +1,0 @@
-com\qrcode\QrGeneration\controller\QRCodeController.class
-com\qrcode\QrGeneration\repository\QRCodeRepository.class
-com\qrcode\QrGeneration\model\QRCodeEntity.class
-com\qrcode\QrGeneration\QrGenerationApplication.class
-com\qrcode\QrGeneration\service\QRCodeService.class
