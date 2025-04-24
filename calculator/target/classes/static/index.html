@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+<h2>Spring Boot Calculator</h2>
+
+<form method="get" action="/api/calculate">
+    <input type="number" name="num1" placeholder="Enter first number" required><br>
+    <input type="number" name="num2" placeholder="Enter second number" required><br>
+
+    <select name="operation" required>
+        <option value="add">Add (+)</option>
+        <option value="subtract">Subtract (-)</option>
+        <option value="multiply">Multiply (*)</option>
+        <option value="divide">Divide (/)</option>
+    </select><br>
+
+    <button type="submit">Calculate</button>
+</form>
+</body>
+</html>
